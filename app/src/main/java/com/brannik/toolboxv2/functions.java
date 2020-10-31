@@ -1,10 +1,9 @@
 package com.brannik.toolboxv2;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-public class functions {
+public class functions  {
     Context applicationContext = MainActivity.getContextOfApplication();
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
     String drlState,interState,ampState,dvrState,defDrlState,defInterState,defAmpState,defDvrState,drlDelay,interDelay,ampDelay,dvrDelay,daytimeStart,daytimeEnd;

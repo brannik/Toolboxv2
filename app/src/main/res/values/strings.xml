@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Toolboxv2</string>
+
+    <string name="txtDrlDelay">DRL delay</string>
+    <string name="txtInterDelay">Interior delay</string>
+    <string name="txtAmpDelay">AMP delay</string>
+    <string name="txtDvrDelay">DVR delay</string>
+
+    <string name="btnDRLAutoState">DRL Def</string>
+    <string name="btnINTERAutoState">INTER Def</string>
+    <string name="btnAMPAutoState">AMP Def</string>
+    <string name="btnDVRAutoState">DVR Def</string>
+
+    <string name="btnSave">SAVE</string>
+
+    <string name="tglOn">AUTO</string>
+    <string name="tglOff">MANUAL</string>
+
+    <string name="title">SETTINGS</string>
+
+    <string name="from">FROM H</string>
+    <string name="to">TO H</string>
+    <string name="fromToLabel">SET DAYTIME HOURS</string>
+</resources>

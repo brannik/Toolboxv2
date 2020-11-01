@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Toolboxv2</string>
+    <string name="app_name">Car automatic management v2</string>
 
     <string name="txtDrlDelay">DRL delay</string>
     <string name="txtInterDelay">Interior delay</string>

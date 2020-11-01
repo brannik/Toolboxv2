@@ -1,8 +1,12 @@
 package com.brannik.toolboxv2;
 
 
-public class functions  {
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
+public class functions  {
+    Context applicationContext = MainActivity.getContextOfApplication();
     public String switchValue(String value){
         // switch states
         String returnData;
@@ -12,6 +16,13 @@ public class functions  {
             returnData="ON";
         }
         return returnData;
+    }
+
+    public String getStatus(String element){
+        String status;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
+        status = prefs.getString(element,null);
+        return status;
     }
 }
 

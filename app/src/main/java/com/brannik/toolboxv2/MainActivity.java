@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contextOfApplication = getApplicationContext();
         getData();
         startService(new Intent(this, worker.class));
+        startService(new Intent(this, overlay.class));
 
         TextView txtDrlDelay = findViewById(R.id.txtDrlDelayValue);
         TextView txtInterDelay = findViewById(R.id.txtInterDelayValue);

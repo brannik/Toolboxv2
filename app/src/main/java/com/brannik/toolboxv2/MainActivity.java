@@ -20,12 +20,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     String drlState,interState,ampState,dvrState,defDrlState,defInterState,defAmpState,defDvrState,drlDelay,interDelay,ampDelay,dvrDelay,daytimeStart,daytimeEnd;
     functions action = new functions();
+    Boolean frun = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         contextOfApplication = getApplicationContext();
         getData();
+
         startService(new Intent(this, worker.class));
         startService(new Intent(this, overlay.class));
 

@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 
 public class functions  {
     Context applicationContext = MainActivity.getContextOfApplication();
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
     public String switchValue(String value){
         // switch states
         String returnData;
@@ -20,10 +21,51 @@ public class functions  {
 
     public String getStatus(String element){
         String status;
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
         status = prefs.getString(element,null);
         return status;
     }
+
+    public void makeChange(String element,String state){
+        SharedPreferences.Editor editor = prefs.edit();
+        switch(element){
+            case "drlState":
+                editor.putString("drlState", state);
+                editor.apply();
+                editor.commit();
+                break;
+            case "interState":
+                editor.putString("interState", state);
+                editor.apply();
+                editor.commit();
+                break;
+            case "ampState":
+                editor.putString("ampState", state);
+                editor.apply();
+                editor.commit();
+                break;
+            case "dvrState":
+                editor.putString("dvrState", state);
+                editor.apply();
+                editor.commit();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public Boolean sendRequestWaitForRespond(String element,String state){
+        // send new data over wifi and wait for back call
+        if(true){
+            makeChange(element,switchValue(state));
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    // void findWifi(){}
+    // void connectWifi(){}
+    // void sendData(){}
 }
 
 /*

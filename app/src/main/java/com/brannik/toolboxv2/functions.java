@@ -1,11 +1,5 @@
 package com.brannik.toolboxv2;
-
-
-import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class functions extends AppCompatActivity {
@@ -69,11 +63,14 @@ public class functions extends AppCompatActivity {
     }
 
     void findWifi(){}
-    void connectWifi(){}
+    void connectWifi(){
+
+    }
     void sendData(){}
 
     public void sendDefaults(){
         // send all default settings over wifi
+        // if time is between dayTimeStart and dayTimeEnd then defDrlState = defDrlState else -> defDrlState = OFF aways
     }
 
 }

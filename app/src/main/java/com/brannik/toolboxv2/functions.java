@@ -53,6 +53,7 @@ public class functions  {
         }
     }
 
+
     public Boolean sendRequestWaitForRespond(String element,String state){
         // send new data over wifi and wait for back call
         if(true){
@@ -63,13 +64,14 @@ public class functions  {
         }
     }
 
-    // void findWifi(){}
-    // void connectWifi(){}
-    // void sendData(){}
+    void findWifi(){}
+    void connectWifi(){}
+    void sendData(){}
 
     public void sendDefaults(){
         // send all default settings over wifi
     }
+
 }
 
 /*

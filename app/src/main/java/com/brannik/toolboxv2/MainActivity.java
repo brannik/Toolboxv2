@@ -24,6 +24,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static SharedPreferences prefs;
     functions action = new functions();
     Boolean frun = true;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +41,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(frun){
             action.sendDefaults();
             frun = false;
+            StartService();
+            drlState = interState = ampState = dvrState = "OFF";
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("drlState", drlState);
+            editor.putString("interState", interState);
+            editor.putString("ampState", ampState);
+            editor.putString("dvrState", dvrState);
+            editor.apply();
+            editor.commit();
         }
-        StartService();
+
 
         //trackBattery();
 
@@ -126,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void saveData(){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(contextOfApplication);
         SharedPreferences.Editor editor = prefs.edit();
 
         TextView txtDrlDelay = findViewById(R.id.txtDrlDelayValue);

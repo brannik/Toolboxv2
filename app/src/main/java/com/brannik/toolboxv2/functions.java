@@ -66,6 +66,10 @@ public class functions  {
     // void findWifi(){}
     // void connectWifi(){}
     // void sendData(){}
+
+    public void sendDefaults(){
+        // send all default settings over wifi
+    }
 }
 
 /*

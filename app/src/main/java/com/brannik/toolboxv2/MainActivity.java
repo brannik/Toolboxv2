@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -27,9 +29,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         contextOfApplication = getApplicationContext();
         getData();
-
+        if(frun){
+            action.sendDefaults();
+            frun = false;
+        }
         startService(new Intent(this, worker.class));
         startService(new Intent(this, overlay.class));
+
+        TextView testText = findViewById(R.id.batStatus);
+        testText.setText(trackCharging.status);
 
         TextView txtDrlDelay = findViewById(R.id.txtDrlDelayValue);
         TextView txtInterDelay = findViewById(R.id.txtInterDelayValue);
@@ -158,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putString("daytimeEnd", daytimeEnd);
         editor.apply();
         editor.commit();
+        action.sendDefaults();
     }
 
 
@@ -202,4 +211,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.commit();
         }
     }
+
 }

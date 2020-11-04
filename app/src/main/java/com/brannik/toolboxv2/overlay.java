@@ -39,7 +39,7 @@ public class overlay extends Service {
     }
     View.OnClickListener newListener = new View.OnClickListener() {
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ to do
-        // send request over wwifi -> w8 for respond if is ok -> chenge state
+        // send request over wwifi -> w8 for respond if is ok -> change state
         @Override
         public void onClick(View view) {
             switch(view.getId()){

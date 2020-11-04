@@ -1,13 +1,17 @@
 package com.brannik.toolboxv2;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-public class functions  {
-    Context applicationContext = MainActivity.getContextOfApplication();
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
+import androidx.appcompat.app.AppCompatActivity;
+
+public class functions extends AppCompatActivity {
+    //Context applicationContext = MainActivity.getContextOfApplication();
+    @SuppressWarnings("deprecation")
+    SharedPreferences prefs = MainActivity.prefs;
     public String switchValue(String value){
         // switch states
         String returnData;

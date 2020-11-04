@@ -3,21 +3,28 @@ package com.brannik.toolboxv2;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.widget.Toast;
 
-public class trackCharging extends BroadcastReceiver {
-    public static int status;
-    public static boolean isCharging;
-    public static int chargePlug;
-    public static boolean usbCharge,acCharge;
-
+public class trackCharging extends BroadcastReceiver  {
+    Context cont = MainActivity.getContextOfApplication();
     @Override
     public void onReceive(Context context, Intent intent) {
-        status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-        isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
-                status == BatteryManager.BATTERY_STATUS_FULL;
-        chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-        usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
-        acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+        IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = cont.registerReceiver(null, filter);
+
+        int chargeState = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        String strState;
+        switch (chargeState) {
+            case BatteryManager.BATTERY_STATUS_CHARGING:
+            case BatteryManager.BATTERY_STATUS_FULL:
+                strState = "charging";
+                break;
+            default:
+                strState = "not charging";
+        }
+        Toast.makeText(context, "CHANGED !!! " + strState, Toast.LENGTH_SHORT).show();
     }
+
 }

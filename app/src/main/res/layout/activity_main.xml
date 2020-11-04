@@ -281,12 +281,6 @@
                 android:text="@string/btnSave" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/batStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

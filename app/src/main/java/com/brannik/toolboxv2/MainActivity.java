@@ -2,7 +2,9 @@ package com.brannik.toolboxv2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return contextOfApplication;
     }
     String drlState,interState,ampState,dvrState,defDrlState,defInterState,defAmpState,defDvrState,drlDelay,interDelay,ampDelay,dvrDelay,daytimeStart,daytimeEnd;
+    public static SharedPreferences prefs;
     functions action = new functions();
     Boolean frun = true;
     @Override
@@ -26,16 +29,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         contextOfApplication = getApplicationContext();
+        prefs  = PreferenceManager.getDefaultSharedPreferences(contextOfApplication);
         getData();
         if(frun){
             action.sendDefaults();
             frun = false;
         }
-        startService(new Intent(this, worker.class));
-        startService(new Intent(this, overlay.class));
+        StartService();
 
-        TextView testText = findViewById(R.id.batStatus);
-        testText.setText(trackCharging.status);
+        //trackBattery();
 
         TextView txtDrlDelay = findViewById(R.id.txtDrlDelayValue);
         TextView txtInterDelay = findViewById(R.id.txtInterDelayValue);
@@ -210,4 +212,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void StartService(){
+        startService(new Intent(this, worker.class));
+        startService(new Intent(this, overlay.class));
+    }
+
+    public void stopService(){
+        stopService(new Intent(getBaseContext(), worker.class));
+        stopService(new Intent(getBaseContext(), overlay.class));
+    }
 }

@@ -1,10 +1,19 @@
 package com.brannik.toolboxv2;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiManager;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class functions extends AppCompatActivity {
-    //Context applicationContext = MainActivity.getContextOfApplication();
-    @SuppressWarnings("deprecation")
+    Context cont = MainActivity.getContextOfApplication();
+
+    // wifi data
+
+
+
     SharedPreferences prefs = MainActivity.prefs;
     public String switchValue(String value){
         // switch states
@@ -51,7 +60,6 @@ public class functions extends AppCompatActivity {
         }
     }
 
-
     public Boolean sendRequestWaitForRespond(String element,String state){
         // send new data over wifi and wait for back call
         if(true){
@@ -62,7 +70,9 @@ public class functions extends AppCompatActivity {
         }
     }
 
-    void findWifi(){}
+    void findWifi(){
+
+    }
     void connectWifi(){
 
     }

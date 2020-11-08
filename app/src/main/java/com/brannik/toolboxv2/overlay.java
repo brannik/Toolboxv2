@@ -24,10 +24,7 @@ public class overlay extends Service {
     Context applicationContext = MainActivity.getContextOfApplication();
     functions action = new functions();
     String TEMP;
-    public static Boolean check;
-    public static void setCheck(Boolean val){
-        check = val;
-    }
+    public static Boolean check=true;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,11 +41,11 @@ public class overlay extends Service {
         // send request over wwifi -> w8 for respond if is ok -> change state
         @Override
         public void onClick(View view) {
-
+            String state;
             switch(view.getId()){
 
                 case 1:
-                    String state = action.getStatus("drlState");
+                    state = action.getStatus("drlState");
                     new GetMethodDemo().execute("http://192.168.4.1/switch?element=drl&val=" + state.toLowerCase());
 
                     if(check){
@@ -58,19 +55,34 @@ public class overlay extends Service {
                     }
                     break;
                 case 2:
-                    TEMP = action.switchValue(action.getStatus("interState"));
-                    action.makeChange("interState",TEMP);
-                    new GetMethodDemo().execute("http://192.168.4.1/switch?element=int&val=" + TEMP.toLowerCase());
+                    state = action.getStatus("interState");
+                    new GetMethodDemo().execute("http://192.168.4.1/switch?element=int&val=" + state.toLowerCase());
+
+                    if(check){
+                        action.makeChange("interState",action.switchValue(action.getStatus("interState")));
+                    }else{
+                        Toast.makeText(applicationContext,"Error: " + check.toString(),Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case 3:
-                    TEMP = action.switchValue(action.getStatus("ampState"));
-                    action.makeChange("ampState",TEMP);
-                    new GetMethodDemo().execute("http://192.168.4.1/switch?element=amp&val=" + TEMP.toLowerCase());
+                    state = action.getStatus("ampState");
+                    new GetMethodDemo().execute("http://192.168.4.1/switch?element=amp&val=" + state.toLowerCase());
+
+                    if(check){
+                        action.makeChange("ampState",action.switchValue(action.getStatus("ampState")));
+                    }else{
+                        Toast.makeText(applicationContext,"Error: " + check.toString(),Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case 4:
-                    TEMP = action.switchValue(action.getStatus("dvrState"));
-                    action.makeChange("dvrState",TEMP);
-                    new GetMethodDemo().execute("http://192.168.4.1/switch?element=dvr&val=" + TEMP.toLowerCase());
+                    state = action.getStatus("dvrState");
+                    new GetMethodDemo().execute("http://192.168.4.1/switch?element=dvr&val=" + state.toLowerCase());
+
+                    if(check){
+                        action.makeChange("dvrState",action.switchValue(action.getStatus("dvrState")));
+                    }else{
+                        Toast.makeText(applicationContext,"Error: " + check.toString(),Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 default:
                     Log.d("DEBUG", "NEW BUTTON CLICKED > " + view.getId());

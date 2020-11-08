@@ -12,7 +12,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 public class GetMethodDemo extends AsyncTask<String , Void ,String> {
     String server_response;
-    overlay func = new overlay();
     @Override
     protected String doInBackground(String... strings) {
 
@@ -27,8 +26,9 @@ public class GetMethodDemo extends AsyncTask<String , Void ,String> {
 
             if(responseCode == HttpURLConnection.HTTP_OK){
                 server_response = readStream(urlConnection.getInputStream());
-                func.setCheck(Boolean.parseBoolean(server_response));
-                Log.d("DEBUG", server_response);
+                Boolean temp = Boolean.valueOf(server_response);
+                overlay.check = temp;
+                //Log.d("DEBUG", server_response);
             }
 
         } catch (MalformedURLException e) {
@@ -44,7 +44,8 @@ public class GetMethodDemo extends AsyncTask<String , Void ,String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         // set
-        func.setCheck(Boolean.parseBoolean(server_response));
+        Boolean temp = Boolean.valueOf(server_response);
+        overlay.check = temp;
         Log.d("DEBUG", "response -> " + server_response);
 
 

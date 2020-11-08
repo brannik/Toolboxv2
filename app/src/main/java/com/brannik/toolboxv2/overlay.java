@@ -14,13 +14,20 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
+import java.io.UnsupportedEncodingException;
 
 public class overlay extends Service {
     Context applicationContext = MainActivity.getContextOfApplication();
     functions action = new functions();
     String TEMP;
+    public static Boolean check;
+    public static void setCheck(Boolean val){
+        check = val;
+    }
     @Override
     public void onCreate() {
         super.onCreate();
@@ -37,23 +44,33 @@ public class overlay extends Service {
         // send request over wwifi -> w8 for respond if is ok -> change state
         @Override
         public void onClick(View view) {
+
             switch(view.getId()){
+
                 case 1:
-                    //action.sendRequestWaitForRespond("drlState",action.getStatus("drlState"));
-                    TEMP = action.switchValue(action.getStatus("drlState"));
-                    action.makeChange("drlState",TEMP);
+                    String state = action.getStatus("drlState");
+                    new GetMethodDemo().execute("http://192.168.4.1/switch?element=drl&val=" + state.toLowerCase());
+
+                    if(check){
+                        action.makeChange("drlState",action.switchValue(action.getStatus("drlState")));
+                    }else{
+                        Toast.makeText(applicationContext,"Error: " + check.toString(),Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case 2:
                     TEMP = action.switchValue(action.getStatus("interState"));
                     action.makeChange("interState",TEMP);
+                    new GetMethodDemo().execute("http://192.168.4.1/switch?element=int&val=" + TEMP.toLowerCase());
                     break;
                 case 3:
                     TEMP = action.switchValue(action.getStatus("ampState"));
                     action.makeChange("ampState",TEMP);
+                    new GetMethodDemo().execute("http://192.168.4.1/switch?element=amp&val=" + TEMP.toLowerCase());
                     break;
                 case 4:
                     TEMP = action.switchValue(action.getStatus("dvrState"));
                     action.makeChange("dvrState",TEMP);
+                    new GetMethodDemo().execute("http://192.168.4.1/switch?element=dvr&val=" + TEMP.toLowerCase());
                     break;
                 default:
                     Log.d("DEBUG", "NEW BUTTON CLICKED > " + view.getId());

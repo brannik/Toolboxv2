@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static Context getContextOfApplication(){
         return contextOfApplication;
     }
+
     String drlState,interState,ampState,dvrState,defDrlState,defInterState,defAmpState,defDvrState,drlDelay,interDelay,ampDelay,dvrDelay,daytimeStart,daytimeEnd;
     public static SharedPreferences prefs;
     functions action = new functions();

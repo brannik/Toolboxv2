@@ -1,38 +1,17 @@
 package com.brannik.toolboxv2;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
-import org.apache.http.impl.client.HttpClients;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 
 public class functions extends AppCompatActivity {
     Context cont = MainActivity.getContextOfApplication();
-
-    // wifi data
-
-
-
     SharedPreferences prefs = MainActivity.prefs;
     public String switchValue(String value){
         // switch states
@@ -80,16 +59,77 @@ public class functions extends AppCompatActivity {
     }
 
 
-    public void sendData(){
-        new GetMethodDemo().execute("your web-service url");
-    }
-
     public void sendDefaults(){
 
-        // send all default settings over wifi
-        // if time is between dayTimeStart and dayTimeEnd then defDrlState = defDrlState else -> defDrlState = OFF aways
+        if(compareDates()){
+            // send defDrlState to original state
+            String data ="http://192.168.4.1/defaults?"
+                    .concat("drl=" + MainActivity.defDrlState.toLowerCase())
+                    .concat("&int=" + MainActivity.defInterState.toLowerCase())
+                    .concat("&amp=" + MainActivity.defAmpState.toLowerCase())
+                    .concat("&dvr=" + MainActivity.defDvrState.toLowerCase())
+                    .concat("&drlDelay=" + MainActivity.drlDelay.toLowerCase())
+                    .concat("&intDelay=" + MainActivity.interDelay.toLowerCase())
+                    .concat("&ampDelay=" + MainActivity.ampDelay.toLowerCase())
+                    .concat("&dvrDelay" + MainActivity.dvrDelay.toLowerCase());
+            new GetMethodDemo().execute(data);
+        }else{
+            String data ="http://192.168.4.1/defaults?"
+                    .concat("drl=off")
+                    .concat("&int=on")
+                    .concat("&amp=" + MainActivity.defAmpState.toLowerCase())
+                    .concat("&dvr=" + MainActivity.defDvrState.toLowerCase())
+                    .concat("&drlDelay=" + MainActivity.drlDelay.toLowerCase())
+                    .concat("&intDelay=" + MainActivity.interDelay.toLowerCase())
+                    .concat("&ampDelay=" + MainActivity.ampDelay.toLowerCase())
+                    .concat("&dvrDelay" + MainActivity.dvrDelay.toLowerCase());
+            new GetMethodDemo().execute(data);
+        }
+        //new GetMethodDemo().execute("http://192.168.4.1/defaults?drl=on&int=on&amp=on&dvr=on&drlDelay=10&intDelay=10&ampDelay=10&dvrDelay=10");
+
     }
 
+    private Date date;
+    private Date dateCompareOne;
+    private Date dateCompareTwo;
+
+    private String compareStringOne ;
+    private String compareStringTwo ;
+
+
+    SimpleDateFormat inputParser = new SimpleDateFormat("HH:mm",Locale.ROOT);
+
+    public Boolean compareDates(){
+        compareStringOne = String.format("%s:00",MainActivity.daytimeStart) ;
+        compareStringTwo = String.format("%s:00",MainActivity.daytimeEnd) ;
+        //Log.d("DEBUG",compareStringOne);
+        //Log.d("DEBUG",compareStringTwo);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String s = sdf.format(new Date());
+
+        date = parseDate(s);
+        dateCompareOne = parseDate(compareStringOne);
+        dateCompareTwo = parseDate(compareStringTwo);
+        //Log.d("DEBUG",date.toString());
+        //Log.d("DEBUG",dateCompareOne.toString());
+        //Log.d("DEBUG",dateCompareTwo.toString());
+        if(date.after(dateCompareOne) && date.before(dateCompareTwo)){
+            //Log.d("DEBUG","Is between");
+            return true;
+        }else{
+            //Log.d("DEBUG","Is not between");
+            return false;
+        }
+    }
+
+    private Date parseDate(String date) {
+
+        try {
+            return inputParser.parse(date);
+        } catch (ParseException e) {
+            return new Date(0);
+        }
+    }
 
 }
 

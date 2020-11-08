@@ -26,8 +26,10 @@ public class GetMethodDemo extends AsyncTask<String , Void ,String> {
 
             if(responseCode == HttpURLConnection.HTTP_OK){
                 server_response = readStream(urlConnection.getInputStream());
-                Boolean temp = Boolean.valueOf(server_response);
-                overlay.check = temp;
+                if(server_response.equals("true") || server_response.equals("false")) {
+                    Boolean temp = Boolean.valueOf(server_response);
+                    overlay.check = temp;
+                }
                 //Log.d("DEBUG", server_response);
             }
 
@@ -44,8 +46,10 @@ public class GetMethodDemo extends AsyncTask<String , Void ,String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         // set
-        Boolean temp = Boolean.valueOf(server_response);
-        overlay.check = temp;
+        if(server_response.equals("true") || server_response.equals("false")) {
+            Boolean temp = Boolean.valueOf(server_response);
+            overlay.check = temp;
+        }
         Log.d("DEBUG", "response -> " + server_response);
 
 

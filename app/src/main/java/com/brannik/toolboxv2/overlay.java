@@ -23,12 +23,13 @@ import java.io.UnsupportedEncodingException;
 public class overlay extends Service {
     Context applicationContext = MainActivity.getContextOfApplication();
     functions action = new functions();
-    String TEMP;
     public static Boolean check=true;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        status(action.getStatus("drlState"),action.getStatus("interState"),action.getStatus("ampState"),action.getStatus("dvrState"));
+        status(action.getStatus("drlState"), action.getStatus("interState"), action.getStatus("ampState"), action.getStatus("dvrState"));
+
         // if screen is on - start worker.service else stop worker.service
     }
     @Nullable

@@ -20,8 +20,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static Context getContextOfApplication(){
         return contextOfApplication;
     }
-
-    String drlState,interState,ampState,dvrState,defDrlState,defInterState,defAmpState,defDvrState,drlDelay,interDelay,ampDelay,dvrDelay,daytimeStart,daytimeEnd;
+    String drlState,interState,ampState,dvrState;
+    public static String defDrlState,defInterState,defAmpState,defDvrState,drlDelay,interDelay,ampDelay,dvrDelay;
+    public static String daytimeStart,daytimeEnd;
     public static SharedPreferences prefs;
     functions action = new functions();
     Boolean frun = true;
@@ -43,7 +44,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             action.sendDefaults();
             frun = false;
             StartService();
-            drlState = interState = ampState = dvrState = "OFF";
+            if(action.compareDates()){
+                drlState = defDrlState;
+                interState = defInterState;
+                ampState = defAmpState;
+                dvrState = defDvrState;
+            }else{
+                drlState = "OFF";
+                interState = "ON";
+                ampState = defAmpState;
+                dvrState = defDvrState;
+            }
+
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("drlState", drlState);
             editor.putString("interState", interState);

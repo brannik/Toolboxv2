@@ -29,7 +29,7 @@ public class trackCharging extends BroadcastReceiver  {
                 strState = "not charging";
                 wifi.setWifiEnabled(false);
         }
-        Toast.makeText(context, "CHANGED !!! " + strState, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "CHANGED !!! " + strState, Toast.LENGTH_SHORT).show();
     }
 
 }

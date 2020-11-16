@@ -1,11 +1,9 @@
 package com.brannik.toolboxv2;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -130,7 +128,6 @@ public class functions extends AppCompatActivity {
             return new Date(0);
         }
     }
-
 }
 
 

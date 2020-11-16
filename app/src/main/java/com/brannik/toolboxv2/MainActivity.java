@@ -2,9 +2,7 @@ package com.brannik.toolboxv2;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.os.BatteryManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -41,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         prefs  = PreferenceManager.getDefaultSharedPreferences(contextOfApplication);
         getData();
         if(frun){
-            action.sendDefaults();
             frun = false;
             StartService();
             if(action.compareDates()){
@@ -63,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.putString("dvrState", dvrState);
             editor.apply();
             editor.commit();
+            action.sendDefaults();
+            frun = false;
         }
 
 
@@ -195,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.apply();
         editor.commit();
         action.sendDefaults();
+
     }
 
 
@@ -248,5 +248,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void stopService(){
         stopService(new Intent(getBaseContext(), worker.class));
         stopService(new Intent(getBaseContext(), overlay.class));
+    }
+
+    private Boolean checkWifi(){
+        return true;
     }
 }
